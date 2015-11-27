@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Thea: The Awakening
+GenericName=Thea: The Awakening
+Comment=A turn-based strategic survival game steeped in Slavic myth.
+Exec=/opt/games/Thea.x86_64
+TryExec=/opt/games/Thea.x86_64
+Icon=/opt/games/thea-the-awakening/Thea_Data/Resources/UnityPlayer.png
+Terminal=false
+Categories=Game
