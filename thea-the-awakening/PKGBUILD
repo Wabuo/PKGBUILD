@@ -31,5 +31,4 @@ package() {
   install -m644 "${srcdir}/${name}.desktop" "${pkgdir}/usr/share/applications/${name}.desktop"
 
   cp -a "Thea_Data" "${pkgdir}/opt/games/${name}"
-
 }
