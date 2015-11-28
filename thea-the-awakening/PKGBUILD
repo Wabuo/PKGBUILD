@@ -8,9 +8,11 @@ arch=('i686' 'x86_64')
 url="http://steamcommunity.com/app/378720/discussions/0/490125737485986607"
 license=('custom: commercial')
 source=("https://onedrive.live.com/download?resid=D09AAF078EFDC73D!2983&authkey=!AGxe3W4ByFCzWfs&ithint=file%2czip"
-        "https://raw.githubusercontent.com/Wabuo/PKGBUILD/master/thea-the-awakening/thea-the-awakening.desktop")
+        "https://raw.githubusercontent.com/Wabuo/PKGBUILD/master/thea-the-awakening/thea-the-awakening.desktop"
+        "https://raw.githubusercontent.com/Wabuo/PKGBUILD/master/thea-the-awakening/thea-the-awakening.desktop.sig")
+validpgpkeys=('E50EF6D35253C390580747781D3F7F8594C766C9') # Wabuo
 noextract=("download?resid=D09AAF078EFDC73D!2983&authkey=!AGxe3W4ByFCzWfs&ithint=file%2czip")
-sha256sums=('SKIP' 'SKIP') #The devolopers don't provide any checksum!
+sha256sums=('SKIP' 'SKIP' 'SKIP') #The devolopers don't provide any checksum!
 makedepends=(unzip)
 depends=()
 
