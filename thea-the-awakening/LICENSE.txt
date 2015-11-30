@@ -1,9 +1,0 @@
-Thea the Linux version!
-
-So, Khash mentioned in another thread that we are unable to support, or even test Thea on Linux, and sadly, nothing has changed here. But, we decided to make the Linux version, as it is, available to anyone who wants to play with it.
-
-Now I will just say once more that we will not be supporting this version and we do not know how well it works as it is, but hey, if you want to check it out, its here and it's free.
-
-If you decide to have a go at it, please do leave us some feedback. Who knows, maybe one day we'll be able to play with it ourselves and fix it up, but no promises!
-
-Enjoy!
