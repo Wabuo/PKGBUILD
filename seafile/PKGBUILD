@@ -95,7 +95,7 @@ package_seafile-server() {
               'sqlite: recomended for Home/Personal environments -you need either one')
   conflicts=("seafile-shared<${pkgver}")
   options=('!libtool') # '!emptydirs'
-  install=seafile-server-bin.install
+  install=seafile-server.install
   pkgdesc="Seafile server components, without seahub"
 
   # Install library and header files
