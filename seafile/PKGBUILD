@@ -10,7 +10,7 @@ makedepends=('libevent' 'intltool' 'libmariadbclient' 'jansson' 'vala' 'fuse' 'l
 depends=('python-setuptools' 'python2-pillow' 'python2-ldap' 'mysql-python' 'python2-memcached' )
 source=("seafile-server-${pkgver}.tar.gz::https://github.com/haiwen/seafile/archive/v${pkgver}-server.tar.gz"
         "https://raw.githubusercontent.com/Wabuo/PKGBUILD/master/seafile/seafile-admin_wrapper"
-        "seafile-server-bin.install"
+        "seafile-server.install"
         "seafile-server.service")
 sha256sums=('0de96a7e2a45b5207480ec729f14d5b09d98d1c613807b0f190cfa2851e8b8b1'
             'ba78a3e37baad2d1beb4c1bc2e64abff1781d1e0996711e84e40a377179da10b'
