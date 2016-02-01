@@ -13,7 +13,7 @@ source=("seafile-server-${pkgver}.tar.gz::https://github.com/haiwen/seafile/arch
         "seafile-server.install"
         "seafile-server.service")
 sha256sums=('0de96a7e2a45b5207480ec729f14d5b09d98d1c613807b0f190cfa2851e8b8b1'
-            'ba78a3e37baad2d1beb4c1bc2e64abff1781d1e0996711e84e40a377179da10b'
+            'd493f34141cb28787a751413c54164abe25bb829a9310458deb3ef485c09356e'
             'dfb86abe8626fb727d79db5125673874f060416b46ede090e6e887a381b56a81'
             'ae1ed38f94304d27e4ef1ca66e15d544f99681c1e743c510c54d4a112f050421')
 
