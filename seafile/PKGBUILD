@@ -9,9 +9,9 @@ license=('GPL2' 'custom')
 makedepends=('libevent' 'intltool' 'libmariadbclient' 'jansson' 'vala' 'fuse' 'libzdb' 'libevhtp-seafile' 'libsearpc' 'ccnet')
 depends=('python-setuptools' 'python2-pillow' 'python2-ldap' 'mysql-python' 'python2-memcached' )
 source=("seafile-server-${pkgver}.tar.gz::https://github.com/haiwen/seafile/archive/v${pkgver}-server.tar.gz"
-        "seafile-server@.service")
-sha256sums=('0de96a7e2a45b5207480ec729f14d5b09d98d1c613807b0f190cfa2851e8b8b1'
-            'ae1ed38f94304d27e4ef1ca66e15d544f99681c1e743c510c54d4a112f050421')
+        "https://raw.githubusercontent.com/Wabuo/PKGBUILD/master/seafile/seafile-server-bin.install"
+        "https://raw.githubusercontent.com/Wabuo/PKGBUILD/master/seafile/seafile-server.service")
+sha256sums=()
 
 build() {
   cd "$srcdir/seafile-${pkgver}-server"
