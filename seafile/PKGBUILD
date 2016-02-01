@@ -108,8 +108,8 @@ package_seafile-server() {
   rm -rf "${pkgdir}/usr/share/$pkgname/scripts/upgrade/win32"
 
   # Install systemd service
-  install -D -m644 "${srcdir}/seafile-server@.service" \
-    "${pkgdir}/usr/lib/systemd/system/seafile-server@.service"
+  install -D -m644 "${srcdir}/seafile-server.service" \
+    "${pkgdir}/usr/lib/systemd/system/seafile-server.service"
 
   # Create config dir
   install -dm644 "${pkgdir}/etc/seafile"
