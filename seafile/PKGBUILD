@@ -1,0 +1,134 @@
+pkgname=('seafile-server' 'seafile-client-cli' 'seafile-shared')
+pkgbase=seafile
+pkgver=5.0.5
+pkgrel=1
+pkgdesc="A utility to apply patch files to original sources"
+arch=('i686' 'x86_64')
+url="https://www.gnu.org/software/patch/patch.html"
+license=('GPL2' 'custom')
+makedepends=('libevent' 'intltool' 'libmariadbclient' 'jansson' 'vala' 'fuse' 'libzdb' 'libevhtp-seafile' 'libsearpc' 'ccnet')
+depends=('python-setuptools' 'python2-pillow' 'python2-ldap' 'mysql-python' 'python2-memcached' )
+source=("seafile-server-${pkgver}.tar.gz::https://github.com/haiwen/seafile/archive/v${pkgver}-server.tar.gz"
+        "seafile-server@.service")
+sha256sums=('0de96a7e2a45b5207480ec729f14d5b09d98d1c613807b0f190cfa2851e8b8b1'
+            'ae1ed38f94304d27e4ef1ca66e15d544f99681c1e743c510c54d4a112f050421')
+
+build() {
+  cd "$srcdir/seafile-${pkgver}-server"
+
+  ./autogen.sh
+
+  ./configure --help
+
+  ./configure \
+    --enable-client \
+    --enable-fuse \
+    --enable-python \
+    --enable-server \
+    --sysconfdir=/etc/seafileseafile \
+    --prefix=/usr \
+    PYTHON=/usr/bin/python2
+
+  make
+}
+
+# package() {
+#        install -dm755 "${pkgdir}/usr/share/webapps";
+#        mv "$srcdir/$_name-$pkgver" "${pkgdir}/usr/share/webapps/$_name";
+# }
+
+package_seafile-shared() {
+  depends=("ccnet" "fuse")
+  conflicts=("ccnet<${pkgver}")
+  pkgdesc="Shared components of Seafile (seafile-daemon, libseafile, python bindings, manuals)"
+
+  cd "${srcdir}/seafile-${pkgver}-server"
+
+  make DESTDIR="${pkgdir}" install
+
+  # Remove server components
+  rm -rf "${pkgdir}/usr/bin/seafserv-gc"
+  rm -rf "${pkgdir}/usr/bin/seafile-admin"
+  rm -rf "${pkgdir}/usr/bin/seaf-fuse"
+  rm -rf "${pkgdir}/usr/bin/seaf-server"
+  rm -rf "${pkgdir}/usr/bin/seaf-server-init"
+  rm -rf "${pkgdir}/usr/bin/seaf-migrate"
+  rm -rf "${pkgdir}/usr/bin/seaf-fsck"
+  # Remove cli client binary
+  rm -rf "${pkgdir}/usr/bin/seaf-cli"
+}
+
+package_seafile-client-cli() {
+  depends=("seafile-shared" "libevent")
+  conflicts=("seafile-shared<${pkgver}")
+  pkgdesc="Seafile cli client"
+
+  cd "${srcdir}/seafile-${pkgver}-server"
+
+  # Install cli client
+  install -D -m755 app/seaf-cli "${pkgdir}/usr/bin/seaf-cli"
+}
+
+package_seafile-server() {
+  depends=("seafile-shared"
+           "python2-mako" "python2-dateutil" "python2-webpy" "python2-pip"
+           "python2-virtualenv" "python2-flup" "python2-six"
+           "libevhtp-seafile" "git")
+  optdepends=('mysql: recomended for production environments -you need either one'
+              'sqlite: recomended for Home/Personal environments -you need either one')
+  conflicts=("seafile-shared<${pkgver}")
+  options=('!libtool') # '!emptydirs'
+  install=seafile-server-bin.install
+  pkgdesc="Seafile server components, without seahub"
+
+  # Install library and header files
+  cd "${srcdir}/seafile-${pkgver}-server"
+  make DESTDIR="${pkgdir}" install
+
+  # Remove files already installed by seafile-shared
+  # to maintain compatibility
+  rm -rf "${pkgdir}/usr/lib"
+  rm -rf "${pkgdir}/usr/include"
+  rm -rf "${pkgdir}/usr/share/man"
+  rm -rf "${pkgdir}/usr/bin/seaf-daemon"
+  rm -rf "${pkgdir}/usr/bin/seafile-controller"
+
+  # Remove seafile-client-cli
+  rm -rf "${pkgdir}/usr/bin/seaf-cli"
+
+  # Install all scripts
+  mkdir -p "${pkgdir}/usr/share/${pkgname}"
+  cp -r -p "${srcdir}/seafile-${pkgver}-server/scripts" \
+    "${pkgdir}/usr/share/$pkgname/scripts"
+
+  # Remove win32 and other distributions specific scripts
+  rm -rf "${pkgdir}/usr/share/$pkgname/scripts/build"
+  rm -rf "${pkgdir}/usr/share/$pkgname/scripts/upgrade/win32"
+
+  # Install systemd service
+  install -D -m644 "${srcdir}/seafile-server@.service" \
+    "${pkgdir}/usr/lib/systemd/system/seafile-server@.service"
+
+  # Create config dir
+  install -dm644 "${pkgdir}/etc/seafile"
+
+  # Debug stuff
+  # echo
+  # echo
+  # echo 'ls -la ${srcdir}/seafile-${pkgver}-server'
+  # ls -la ${srcdir}/seafile-${pkgver}-server
+  # echo
+  # echo
+  # echo 'ls -la ${srcdir}/seafile-${pkgver}-server/server'
+  # ls -la ${srcdir}/seafile-${pkgver}-server/server
+  # echo 'ls -la ${pkgdir}'
+  # echo
+  # ls -la ${pkgdir}
+  # echo
+  # echo
+
+  # Install seahub preupgrade script
+  # ls -la ${srcdir}
+  # install -D -m755 "${srcdir}/seahub-preupgrade" \
+    # "${pkgdir}/usr/bin/seahub-preupgrade"
+}
