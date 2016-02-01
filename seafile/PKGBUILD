@@ -9,10 +9,12 @@ license=('GPL2' 'custom')
 makedepends=('libevent' 'intltool' 'libmariadbclient' 'jansson' 'vala' 'fuse' 'libzdb' 'libevhtp-seafile' 'libsearpc' 'ccnet')
 depends=('python-setuptools' 'python2-pillow' 'python2-ldap' 'mysql-python' 'python2-memcached' )
 source=("seafile-server-${pkgver}.tar.gz::https://github.com/haiwen/seafile/archive/v${pkgver}-server.tar.gz"
+        "https://raw.githubusercontent.com/Wabuo/PKGBUILD/master/seafile/seafile-admin_wrapper"
         "seafile-server-bin.install"
         "seafile-server.service")
 sha256sums=('0de96a7e2a45b5207480ec729f14d5b09d98d1c613807b0f190cfa2851e8b8b1'
-            '69b438aef29b69f1316c2f92adb8e2b02b0f5c97761889d914db4bfbad1a7781'
+            'ba78a3e37baad2d1beb4c1bc2e64abff1781d1e0996711e84e40a377179da10b'
+            'dfb86abe8626fb727d79db5125673874f060416b46ede090e6e887a381b56a81'
             'ae1ed38f94304d27e4ef1ca66e15d544f99681c1e743c510c54d4a112f050421')
 
 prepare () {
@@ -107,6 +109,11 @@ package_seafile-server() {
   rm -rf "${pkgdir}/usr/share/man"
   rm -rf "${pkgdir}/usr/bin/seaf-daemon"
   rm -rf "${pkgdir}/usr/bin/seafile-controller"
+
+  # Add seafile-admin wrapper script and rename seafile-admin to seafile-admin_orginal
+  mv "${pkgdir}/usr/bin/seafile-admin" "${pkgdir}/usr/bin/seafile-admin_orginal"
+  install -Dm755 "${srcdir}/seafile-admin_wrapper" \
+    "${pkgdir}/usr/bin/seafile-admin"
 
   # Remove seafile-client-cli
   rm -rf "${pkgdir}/usr/bin/seaf-cli"
