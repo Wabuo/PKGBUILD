@@ -15,6 +15,19 @@ sha256sums=('0de96a7e2a45b5207480ec729f14d5b09d98d1c613807b0f190cfa2851e8b8b1'
             '69b438aef29b69f1316c2f92adb8e2b02b0f5c97761889d914db4bfbad1a7781'
             'ae1ed38f94304d27e4ef1ca66e15d544f99681c1e743c510c54d4a112f050421')
 
+prepare () {
+  cd "${srcdir}/seafile-${pkgver}-server"
+
+  # patch -p1 -i "${srcdir}/seafile-admin_virtualenv.patch"
+  # patch -p1 -i "${srcdir}/0001-Revert-server-put-pids-folder-out-of-seafile-data.patch"
+  # patch -p1 -i "${srcdir}/create-default-conf-dir.patch"
+  # patch -p1 -i "${srcdir}/libseafile.in.patch"
+
+  # Fix all script's python 2 requirement
+  grep -s -l -r '#!/usr/bin/env python' "${srcdir}/seafile-${pkgver}-server" \
+    | xargs sed -i -e 's|#!/usr/bin/env python|#!/usr/bin/env python2|g'
+}
+
 build() {
   cd "$srcdir/seafile-${pkgver}-server"
 

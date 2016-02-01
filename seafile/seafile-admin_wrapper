@@ -1,0 +1,3 @@
+#!/bin/sh
+cd /usr/share;
+/usr/bin/seafile-admin_orginal;

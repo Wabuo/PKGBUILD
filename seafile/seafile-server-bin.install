@@ -1,11 +1,10 @@
 
 #pre_install() {}
 
-
 post_install() {
     echo
     echo "Dont forget to run the install script!"
-    #echo
+    echo 
     echo "seafile-admin"
     echo
 }
