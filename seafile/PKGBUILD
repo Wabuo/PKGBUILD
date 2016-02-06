@@ -35,7 +35,7 @@ build() {
 
   ./autogen.sh
 
-  ./configure --help
+  ./configure --help=recursive  
 
   ./configure \
     --enable-client \
@@ -119,9 +119,10 @@ package_seafile-server() {
   rm -rf "${pkgdir}/usr/bin/seaf-cli"
 
   # Install all scripts
-  mkdir -p "${pkgdir}/usr/share/${pkgname}"
+  install -d "${pkgdir}/usr/share/${pkgname}"
   cp -r -p "${srcdir}/seafile-${pkgver}-server/scripts" \
     "${pkgdir}/usr/share/$pkgname/scripts"
+  install -d "${pkgdir}/usr/share/$pkgname/scripts/runtime"
 
   # Remove win32 and other distributions specific scripts
   rm -rf "${pkgdir}/usr/share/$pkgname/scripts/build"
@@ -132,22 +133,22 @@ package_seafile-server() {
     "${pkgdir}/usr/lib/systemd/system/seafile-server.service"
 
   # Create config dir
-  install -dm644 "${pkgdir}/etc/seafile"
+  install -d "${pkgdir}/etc/seafile"
 
   # Debug stuff
-  # echo
-  # echo
-  # echo 'ls -la ${srcdir}/seafile-${pkgver}-server'
-  # ls -la ${srcdir}/seafile-${pkgver}-server
-  # echo
-  # echo
-  # echo 'ls -la ${srcdir}/seafile-${pkgver}-server/server'
-  # ls -la ${srcdir}/seafile-${pkgver}-server/server
-  # echo 'ls -la ${pkgdir}'
-  # echo
-  # ls -la ${pkgdir}
-  # echo
-  # echo
+  echo
+  echo
+  echo 'ls -la ${srcdir}/seafile-${pkgver}-server'
+  ls -la ${srcdir}/seafile-${pkgver}-server
+  echo
+  echo
+  echo 'ls -la ${srcdir}/seafile-${pkgver}-server/server'
+  ls -la ${srcdir}/seafile-${pkgver}-server/server
+  echo 'ls -la ${pkgdir}'
+  echo
+  ls -la ${pkgdir}
+  echo
+  echo
 
   # Install seahub preupgrade script
   # ls -la ${srcdir}
