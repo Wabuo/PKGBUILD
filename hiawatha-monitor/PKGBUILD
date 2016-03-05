@@ -27,4 +27,5 @@ package() {
   cp -a "monitor/*" "${pkgdir}/usr/share/webapps/${pkgname}"
   cp -a "systemd_timers/*" "${pkgdir}/etc/systemd/system/"
 
+  ln -s "/usr/share/webapps/${pkgname}/settings" "${pkgdir}/etc/webapps/${pkgname}/settings"
 }
