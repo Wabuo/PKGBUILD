@@ -2,7 +2,7 @@
 
 pkgname=hiawatha-monitor
 pkgver=1.4
-pkgrel=2
+pkgrel=3
 pkgdesc="The Hiawatha Monitor is a monitoring tool for the Hiawatha webserver. It can be used to keep track of the performance and security of all your Hiawatha webservers via one single interface."
 arch=('any')
 url="https://www.hiawatha-webserver.org/monitor"
